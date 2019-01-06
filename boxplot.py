@@ -2,16 +2,18 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
-training_costs = pd.read_csv("training costs.csv")
-prediction_costs = pd.read_csv("prediction costs.csv")
+inputfolder = "./results/classification/"
+
+training_costs = pd.read_csv(inputfolder + "training costs.csv")
+prediction_costs = pd.read_csv(inputfolder + "prediction costs.csv")
 plt.rcParams.update({"font.size": 17})
 
-# training_costs.boxplot()
-# plt.ylim([0, 1])
-# plt.xlabel("Classificaiton Algorithm")
-# plt.ylabel("Cost")
-# plt.title("Average cost on training set (DTLZ)")
-# plt.show()
+training_costs.boxplot()
+plt.ylim([0, 1])
+plt.xlabel("Classificaiton Algorithm")
+plt.ylabel("Cost")
+plt.title("Average cost on training set (DTLZ)")
+plt.show()
 
 pplot = prediction_costs.boxplot()
 plt.ylim([0, 1])

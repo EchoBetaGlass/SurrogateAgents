@@ -25,16 +25,21 @@ classifiers = {
 training_costs = pd.DataFrame(columns=classifiers.keys())
 prediction_costs = pd.DataFrame(columns=classifiers.keys())
 
-data = pd.read_csv("features with R2 dtlz.csv")
-inputs_train = data[data.keys()[1:11]]
-outputs_train = data[data.keys()[11:]]
+rootfolder = "./results/featuresR2/"
+outputfolder = "./results/classification/"
+data = pd.read_csv(rootfolder + "dtlz.csv")
+inputs_train = data[data.keys()[1:14]]
+outputs_train = data[data.keys()[14:]]
 target_train = outputs_train.idxmax(axis=1)
 
-data_wfg = pd.read_csv("features with R2 wfg.csv")
-inputs_test = data_wfg[data_wfg.keys()[1:11]]
-outputs_test = data_wfg[data_wfg.keys()[11:]]
+data_wfg = pd.read_csv(rootfolder + "wfg.csv")
+inputs_test = data_wfg[data_wfg.keys()[1:14]]
+outputs_test = data_wfg[data_wfg.keys()[14:]]
 target_test = outputs_test.idxmax(axis=1)
-for i in range(50):
+
+total_runs = 50
+for i in range(total_runs):
+    print('Run', i, 'of', total_runs)
     temp_t = pd.DataFrame([[0, 0, 0, 0, 0, 0, 0, 0, 0]], columns=classifiers.keys())
     temp_p = pd.DataFrame([[0, 0, 0, 0, 0, 0, 0, 0, 0]], columns=classifiers.keys())
     for key, value in classifiers.items():
@@ -72,5 +77,5 @@ for i in range(50):
     prediction_costs = prediction_costs.append(temp_p)
 print(training_costs)
 print(prediction_costs)
-training_costs.to_csv("training costs.csv")
-prediction_costs.to_csv("prediction costs.csv")
+training_costs.to_csv(outputfolder + "training costs.csv")
+prediction_costs.to_csv(outputfolder + "prediction costs.csv")

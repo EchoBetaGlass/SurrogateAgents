@@ -4,19 +4,16 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-flake8 = "*"
-pydocstyle = "*"
 black = "*"
-pylama = "*"
 
 [packages]
 optproblems = "*"
-pydoe = "*"
 numpy = "*"
 pandas = "*"
+pydoe = "*"
 scipy = "*"
-scikit-learn = "*"
 diversipy = "*"
+scikit-learn = "*"
 matplotlib = "*"
 
 [requires]

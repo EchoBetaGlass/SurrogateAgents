@@ -19,6 +19,7 @@ files = listdir(folder)
 outputfolder = folder + "modellingresults/"
 numfiles = len(files)
 i = 0
+
 R2results = pd.DataFrame(
     np.zeros((numfiles, 5)), columns=["file", "SVM", "NN", "Ada", "GPR"]
 )
