@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "/home/bhupinder/.local/share/virtualenvs/SurrogeteModels-1Fb99ldV/bin/python"
+    "python.pythonPath": "/home/bhupinder/.local/share/virtualenvs/SurrogeteModels-1Fb99ldV/bin/python",
+    "python.linting.flake8Enabled": false
 }
