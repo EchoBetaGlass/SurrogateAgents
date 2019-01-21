@@ -5,6 +5,8 @@ verify_ssl = true
 
 [dev-packages]
 black = "*"
+pydocstyle = "*"
+pylint = "*"
 
 [packages]
 optproblems = "*"
@@ -17,4 +19,4 @@ scikit-learn = "*"
 matplotlib = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
