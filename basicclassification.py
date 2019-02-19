@@ -28,14 +28,15 @@ prediction_costs = pd.DataFrame(columns=classifiers.keys())
 
 rootfolder = "./results/featuresR2/"
 outputfolder = "./results/classification/"
-data = pd.read_csv(rootfolder + "dtlz.csv")
+data = pd.read_csv(rootfolder + "dtlz_without_best.csv")
 inputs_train = data[data.keys()[1:14]]
 outputs_train = data[data.keys()[14:]]
 target_train = outputs_train.idxmax(axis=1)
 
-data_wfg = pd.read_csv(rootfolder + "wfg.csv")
+data_wfg = pd.read_csv(rootfolder + "wfg_without_best.csv")
 inputs_test = data_wfg[data_wfg.keys()[1:14]]
 outputs_test = data_wfg[data_wfg.keys()[14:]]
+print(data_wfg.keys()[14:])
 target_test = outputs_test.idxmax(axis=1)
 
 total_runs = 1
@@ -52,7 +53,7 @@ for i in range(total_runs):
         con_mat = confusion_matrix(target_train, predictions)
         cost_mat = outputs_train
         cost_mat = -cost_mat.sub(cost_mat.max(axis=1), axis=0)
-        print(con_mat, '\n')
+        # print(con_mat, '\n')
         num_samples, num_classes = cost_mat.shape
         cost = 0
         lenp = len(predictions)
@@ -67,7 +68,7 @@ for i in range(total_runs):
         con_mat = confusion_matrix(target_test, predictions)
         cost_mat = outputs_test
         cost_mat = -cost_mat.sub(cost_mat.max(axis=1), axis=0)
-        print(con_mat, '\n')
+        # print(con_mat, '\n')
         num_samples, num_classes = cost_mat.shape
         cost = 0
         lenp = len(predictions)
@@ -79,5 +80,5 @@ for i in range(total_runs):
     prediction_costs = prediction_costs.append(temp_p)
 print(training_costs)
 print(prediction_costs)
-#training_costs.to_csv(outputfolder + "training costs.csv")
-#prediction_costs.to_csv(outputfolder + "prediction costs.csv")
+# training_costs.to_csv(outputfolder + "training costs.csv")
+# prediction_costs.to_csv(outputfolder + "prediction costs.csv")
