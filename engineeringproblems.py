@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 
 def kursawe(x) -> list:
@@ -63,7 +64,7 @@ def gear_train_design(x) -> float:
     -------
     float
     """
-    return np.square(1 / 6.931 + (x[0] * x[1]) / (x[2] * x[3]))
+    return np.square((1 / 6.931) - (x[0] * x[1]) / (x[2] * x[3]))
 
 
 def pressure_vessel(x) -> float:
@@ -74,7 +75,7 @@ def pressure_vessel(x) -> float:
     Parameters
     ----------
     x : list or ndarray
-        should contain 4 elements. First two should be discrete multiples or 0.625.
+        should contain 4 elements. First two should be discrete multiples or 0.0625.
         Last two should be continuous.
 
     Returns
@@ -121,8 +122,49 @@ def speed_reducer(x) -> list:
         0.7854 * x1 * x2 * x2 * (10 * x3 * x3 / 3 + 14.933 * x3 - 43.0934)
         - 1.508 * x1 * (x6 * x6 + x7 * x7)
         + 7.477 * (x6 * x6 * x6 + x7 * x7 * x7)
-        + 0.7854(x4 * x6 * x6 + x5 * x7 * x7)
+        + 0.7854 * (x4 * x6 * x6 + x5 * x7 * x7)
     )
-    Fstress = np.sqrt(np.pow(745 * x4 / (x2 * x3), 2) + np.pow(1.6910, 7)) / (
+    Fstress = np.sqrt(np.power(745 * x4 / (x2 * x3), 2) + np.power(1.6910, 7)) / (
         0.1 * x6 * x6 * x6
     )
+    return (Fweight, Fstress)
+
+
+def main():
+    # decision_vars = np.random.randint(12, 61, (100, 4))
+    """decision_vars = np.hstack(
+        (np.random.randint(1, 10, (100, 2))*0.0625, np.random.random((100, 2))*80+50)
+    )"""
+    decision_vars = np.random.random((100, 7))
+    decision_vars[:, 0] = decision_vars[:, 0] * (3.6 - 2.6) + 2.6
+    decision_vars[:, 0] = decision_vars[:, 0] * (0.8 - 0.7) + 0.7
+    decision_vars[:, 0] = decision_vars[:, 0] * (11) + 17
+    decision_vars[:, 0] = decision_vars[:, 0] * (1) + 7.3
+    decision_vars[:, 0] = decision_vars[:, 0] * (1) + 7.3
+    decision_vars[:, 0] = decision_vars[:, 0] * (1) + 2.9
+    decision_vars[:, 0] = decision_vars[:, 0] * (0.5) + 5
+    objectives = np.asarray(
+        list(speed_reducer(individual) for individual in decision_vars)
+    )
+    data1 = np.hstack((decision_vars, np.reshape(objectives[:, 0], (100, 1))))
+    data2 = np.hstack((decision_vars, np.reshape(objectives[:, 1], (100, 1))))
+    data1 = pd.DataFrame(data1)
+    data2 = pd.DataFrame(data2)
+    data1.to_csv("speed_reducer_1.csv", index=False)
+    data2.to_csv("speed_reducer_2.csv", index=False)
+
+
+if __name__ == "__main__":
+    main()
+
+""" # Fourbar
+    F = 10
+    E = 200000
+    L = 200
+    sigma = 10
+    c = F/sigma
+    decision_vars[:, 0] =  decision_vars[:, 0] * (3*c- c) + c
+    decision_vars[:, 1] =  decision_vars[:, 1] * (3*c- np.sqrt(2)*c) + np.sqrt(2)*c
+    decision_vars[:, 2] =  decision_vars[:, 2] * (3*c- np.sqrt(2)*c) + np.sqrt(2)*c
+    decision_vars[:, 3] =  decision_vars[:, 3] * (3*c- c) + c
+"""

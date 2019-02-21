@@ -31,4 +31,11 @@ plt.ion()
 plt.show()
 fig = plt.gcf()
 #fig.set_size_inches(18.5, 10.5)
-fig.savefig('feature Variances.png', dpi=200)"""
+fig.savefig('feature Variances.png', dpi=200)
+
+def plot_unity(xdata, ydata, **kwargs):
+    mn = min(xdata.min(), ydata.min())
+    mx = max(xdata.max(), ydata.max())
+    points = np.linspace(mn, mx, 100)
+    plt.gca().plot(points, points, color='k', marker=None,
+            linestyle='--', linewidth=1.0)"""
