@@ -23,7 +23,7 @@ for fldr in folderlist:
     files = listdir(folder)
     numfiles = len(files)
     i = 0
-    algorithms = ["SVM", "NN", "ExTR", "GBR"]
+    
     model = {
         "SVM": svm.SVR,
         "NN": MLPRegressor,
@@ -36,7 +36,7 @@ for fldr in folderlist:
         "ExTR": ensemble.ExtraTreesRegressor,
         "GBR": ensemble.GradientBoostingRegressor,
     }
-
+    algorithms = list(model.keys()) # Add the rest of the algos too.
     R2results = pd.DataFrame(
         np.zeros((numfiles, len(algorithms) + 1)), columns=["file"] + algorithms
     )
